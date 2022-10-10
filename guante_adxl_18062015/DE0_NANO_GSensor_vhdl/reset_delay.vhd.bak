@@ -1,0 +1,22 @@
+library IEEE;
+use ieee.std_logic_1164.all;
+
+entity reset_delay is
+	generic
+	(
+		<name>	: <type>  :=	<default_value>;
+		...
+		<name>	: <type>  :=	<default_value>
+	);
+
+
+	port
+	(
+		-- Input ports
+		ICLK	: in  std_logic;
+		IRSTN		: in  std_logic_vector[1..0];
+		
+		-- Output ports
+		oRST	: out std_logic
+	);
+end reset_delay;

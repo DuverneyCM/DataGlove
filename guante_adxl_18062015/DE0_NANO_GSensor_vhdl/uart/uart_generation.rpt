@@ -1,0 +1,79 @@
+Info: Starting: Create simulation model
+Info: qsys-generate "E:\ToshibaBackup\Windows\Duver\trabajo de grado\guante_adxl_18062015\DE0_NANO_GSensor_vhdl\uart.qsys" --simulation=VHDL --allow-mixed-language-simulation --output-directory="E:\ToshibaBackup\Windows\Duver\trabajo de grado\guante_adxl_18062015\DE0_NANO_GSensor_vhdl\uart\simulation" --family="Cyclone IV E" --part=EP4CE22F17C6
+Progress: Loading DE0_NANO_GSensor_vhdl/uart.qsys
+Progress: Reading input file
+Progress: Adding clk_0 [clock_source 18.1]
+Progress: Parameterizing module clk_0
+Progress: Adding uart_0 [altera_avalon_uart 18.1]
+Progress: Parameterizing module uart_0
+Progress: Building connections
+Progress: Parameterizing connections
+Progress: Validating
+Progress: Done reading input file
+Warning: uart.uart_0: Interrupt sender uart_0.irq is not connected to an interrupt receiver
+Info: uart: Generating uart "uart" for SIM_VHDL
+Info: uart_0: Starting RTL generation for module 'uart_uart_0'
+Info: uart_0:   Generation command is [exec C:/intelfpga_lite/18.1/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga_lite/18.1/quartus/bin64/perl/lib -I C:/intelfpga_lite/18.1/quartus/sopc_builder/bin/europa -I C:/intelfpga_lite/18.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga_lite/18.1/quartus/sopc_builder/bin -I C:/intelfpga_lite/18.1/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga_lite/18.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_uart -- C:/intelfpga_lite/18.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_uart/generate_rtl.pl --name=uart_uart_0 --dir=C:/Users/LOIC-01/AppData/Local/Temp/alt8141_5852999532833742733.dir/0002_uart_0_gen/ --quartus_dir=C:/intelfpga_lite/18.1/quartus --vhdl --config=C:/Users/LOIC-01/AppData/Local/Temp/alt8141_5852999532833742733.dir/0002_uart_0_gen//uart_uart_0_component_configuration.pl  --do_build_sim=1    --sim_dir=C:/Users/LOIC-01/AppData/Local/Temp/alt8141_5852999532833742733.dir/0002_uart_0_gen/  ]
+Info: uart_0: Done RTL generation for module 'uart_uart_0'
+Info: uart_0: "uart" instantiated altera_avalon_uart "uart_0"
+Info: rst_controller: "uart" instantiated altera_reset_controller "rst_controller"
+Info: uart: Done "uart" with 3 modules, 5 files
+Info: qsys-generate succeeded.
+Info: Finished: Create simulation model
+Info: Starting: Create Modelsim Project.
+Info: sim-script-gen --spd="E:\ToshibaBackup\Windows\Duver\trabajo de grado\guante_adxl_18062015\DE0_NANO_GSensor_vhdl\uart\uart.spd" --output-directory="E:/ToshibaBackup/Windows/Duver/trabajo de grado/guante_adxl_18062015/DE0_NANO_GSensor_vhdl/uart/simulation/" --use-relative-paths=true
+Info: Doing: ip-make-simscript --spd=E:\ToshibaBackup\Windows\Duver\trabajo de grado\guante_adxl_18062015\DE0_NANO_GSensor_vhdl\uart\uart.spd --output-directory=E:/ToshibaBackup/Windows/Duver/trabajo de grado/guante_adxl_18062015/DE0_NANO_GSensor_vhdl/uart/simulation/ --use-relative-paths=true
+Info: Generating the following file(s) for MODELSIM simulator in E:/ToshibaBackup/Windows/Duver/trabajo de grado/guante_adxl_18062015/DE0_NANO_GSensor_vhdl/uart/simulation/ directory:
+Info: 	mentor/msim_setup.tcl
+Info: Skipping VCS script generation since VHDL file $QUARTUS_INSTALL_DIR/eda/sim_lib/altera_syn_attributes.vhd is required for simulation
+Info: Generating the following file(s) for VCSMX simulator in E:/ToshibaBackup/Windows/Duver/trabajo de grado/guante_adxl_18062015/DE0_NANO_GSensor_vhdl/uart/simulation/ directory:
+Info: 	synopsys/vcsmx/synopsys_sim.setup
+Info: 	synopsys/vcsmx/vcsmx_setup.sh
+Info: Generating the following file(s) for NCSIM simulator in E:/ToshibaBackup/Windows/Duver/trabajo de grado/guante_adxl_18062015/DE0_NANO_GSensor_vhdl/uart/simulation/ directory:
+Info: 	cadence/cds.lib
+Info: 	cadence/hdl.var
+Info: 	cadence/ncsim_setup.sh
+Info: 	2 .cds.lib files in cadence/cds_libs/ directory
+Info: Generating the following file(s) for RIVIERA simulator in E:/ToshibaBackup/Windows/Duver/trabajo de grado/guante_adxl_18062015/DE0_NANO_GSensor_vhdl/uart/simulation/ directory:
+Info: 	aldec/rivierapro_setup.tcl
+Info: For information on how to simulate your IP, see the explanatory comments in the simulator-specific subdirectories under E:/ToshibaBackup/Windows/Duver/trabajo de grado/guante_adxl_18062015/DE0_NANO_GSensor_vhdl/uart/simulation/.
+Info: Regenerate these scripts whenever you make any change to any Quartus-generated IP in your project.
+Info: Finished: Create Modelsim Project.
+Info: Starting: Create block symbol file (.bsf)
+Info: qsys-generate "E:\ToshibaBackup\Windows\Duver\trabajo de grado\guante_adxl_18062015\DE0_NANO_GSensor_vhdl\uart.qsys" --block-symbol-file --output-directory="E:\ToshibaBackup\Windows\Duver\trabajo de grado\guante_adxl_18062015\DE0_NANO_GSensor_vhdl\uart" --family="Cyclone IV E" --part=EP4CE22F17C6
+Progress: Loading DE0_NANO_GSensor_vhdl/uart.qsys
+Progress: Reading input file
+Progress: Adding clk_0 [clock_source 18.1]
+Progress: Parameterizing module clk_0
+Progress: Adding uart_0 [altera_avalon_uart 18.1]
+Progress: Parameterizing module uart_0
+Progress: Building connections
+Progress: Parameterizing connections
+Progress: Validating
+Progress: Done reading input file
+Warning: uart.uart_0: Interrupt sender uart_0.irq is not connected to an interrupt receiver
+Info: qsys-generate succeeded.
+Info: Finished: Create block symbol file (.bsf)
+Info: 
+Info: Starting: Create HDL design files for synthesis
+Info: qsys-generate "E:\ToshibaBackup\Windows\Duver\trabajo de grado\guante_adxl_18062015\DE0_NANO_GSensor_vhdl\uart.qsys" --synthesis=VHDL --output-directory="E:\ToshibaBackup\Windows\Duver\trabajo de grado\guante_adxl_18062015\DE0_NANO_GSensor_vhdl\uart\synthesis" --family="Cyclone IV E" --part=EP4CE22F17C6
+Progress: Loading DE0_NANO_GSensor_vhdl/uart.qsys
+Progress: Reading input file
+Progress: Adding clk_0 [clock_source 18.1]
+Progress: Parameterizing module clk_0
+Progress: Adding uart_0 [altera_avalon_uart 18.1]
+Progress: Parameterizing module uart_0
+Progress: Building connections
+Progress: Parameterizing connections
+Progress: Validating
+Progress: Done reading input file
+Warning: uart.uart_0: Interrupt sender uart_0.irq is not connected to an interrupt receiver
+Info: uart: Generating uart "uart" for QUARTUS_SYNTH
+Info: uart_0: Starting RTL generation for module 'uart_uart_0'
+Info: uart_0:   Generation command is [exec C:/intelfpga_lite/18.1/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga_lite/18.1/quartus/bin64/perl/lib -I C:/intelfpga_lite/18.1/quartus/sopc_builder/bin/europa -I C:/intelfpga_lite/18.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga_lite/18.1/quartus/sopc_builder/bin -I C:/intelfpga_lite/18.1/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga_lite/18.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_uart -- C:/intelfpga_lite/18.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_uart/generate_rtl.pl --name=uart_uart_0 --dir=C:/Users/LOIC-01/AppData/Local/Temp/alt8141_5852999532833742733.dir/0005_uart_0_gen/ --quartus_dir=C:/intelfpga_lite/18.1/quartus --verilog --config=C:/Users/LOIC-01/AppData/Local/Temp/alt8141_5852999532833742733.dir/0005_uart_0_gen//uart_uart_0_component_configuration.pl  --do_build_sim=0  ]
+Info: uart_0: Done RTL generation for module 'uart_uart_0'
+Info: uart_0: "uart" instantiated altera_avalon_uart "uart_0"
+Info: rst_controller: "uart" instantiated altera_reset_controller "rst_controller"
+Info: uart: Done "uart" with 3 modules, 5 files
+Info: qsys-generate succeeded.
+Info: Finished: Create HDL design files for synthesis

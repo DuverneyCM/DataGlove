@@ -1,0 +1,28 @@
+library IEEE;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+use ieee.std_logic_unsigned.all;
+use work.spi_param.all;
+
+
+entity OFFSET is
+	port
+	(
+		-- Input ports
+		clk		: in	std_logic;
+		reset		: in	std_logic;
+		enable	: in	std_logic;
+		iDATA_L			: out	tipoADX;
+		-- Output ports
+		oDATA_L			: out	tipoADX
+	);
+end OFFSET;
+
+architecture rtl of OFFSET is
+	Signal M		:	tipoDatosM;
+	signal flag, flag2	:	std_logic;
+	
+begin
+
+
+end rtl;

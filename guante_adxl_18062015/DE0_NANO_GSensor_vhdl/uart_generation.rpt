@@ -1,0 +1,41 @@
+Info: Starting: Create block symbol file (.bsf)
+Info: ip-generate --project-directory="C:/Users/duver/Documents/Quartus/ACELEROMETRO_20_03_2014 - copia/DE0_NANO_GSensor_vhdl/" --output-directory="C:/Users/duver/Documents/Quartus/ACELEROMETRO_20_03_2014 - copia/DE0_NANO_GSensor_vhdl/uart/" --report-file="bsf:C:/Users/duver/Documents/Quartus/ACELEROMETRO_20_03_2014 - copia/DE0_NANO_GSensor_vhdl/uart.bsf" --system-info=DEVICE_FAMILY="Cyclone IV E" --system-info=DEVICE=EP4CE22F17C6 --system-info=DEVICE_SPEEDGRADE=6 --component-file="C:/Users/duver/Documents/Quartus/ACELEROMETRO_20_03_2014 - copia/DE0_NANO_GSensor_vhdl/uart.qsys"
+Progress: Loading DE0_NANO_GSensor_vhdl/uart.qsys
+Progress: Reading input file
+Progress: Adding clk_0 [clock_source 13.1]
+Progress: Parameterizing module clk_0
+Progress: Adding uart_0 [altera_avalon_uart 13.1]
+Progress: Parameterizing module uart_0
+Progress: Building connections
+Progress: Parameterizing connections
+Progress: Validating
+Progress: Done reading input file
+Warning: uart.uart_0: Interrupt sender uart_0.irq is not connected to an interrupt receiver
+Info: ip-generate succeeded.
+Info: Finished: Create block symbol file (.bsf)
+Info: 
+Info: Starting: Create HDL design files for synthesis
+Info: ip-generate --project-directory="C:/Users/duver/Documents/Quartus/ACELEROMETRO_20_03_2014 - copia/DE0_NANO_GSensor_vhdl/" --output-directory="C:/Users/duver/Documents/Quartus/ACELEROMETRO_20_03_2014 - copia/DE0_NANO_GSensor_vhdl/uart/synthesis/" --file-set=QUARTUS_SYNTH --report-file="html:C:/Users/duver/Documents/Quartus/ACELEROMETRO_20_03_2014 - copia/DE0_NANO_GSensor_vhdl/uart.html" --report-file="sopcinfo:C:/Users/duver/Documents/Quartus/ACELEROMETRO_20_03_2014 - copia/DE0_NANO_GSensor_vhdl/uart.sopcinfo" --report-file="cmp:C:/Users/duver/Documents/Quartus/ACELEROMETRO_20_03_2014 - copia/DE0_NANO_GSensor_vhdl/uart.cmp" --report-file="qip:C:/Users/duver/Documents/Quartus/ACELEROMETRO_20_03_2014 - copia/DE0_NANO_GSensor_vhdl/uart/synthesis/uart.qip" --report-file=svd --report-file="regmap:C:/Users/duver/Documents/Quartus/ACELEROMETRO_20_03_2014 - copia/DE0_NANO_GSensor_vhdl/uart/synthesis/uart.regmap" --report-file="debuginfo:C:/Users/duver/Documents/Quartus/ACELEROMETRO_20_03_2014 - copia/DE0_NANO_GSensor_vhdl/uart/synthesis/uart.debuginfo" --system-info=DEVICE_FAMILY="Cyclone IV E" --system-info=DEVICE=EP4CE22F17C6 --system-info=DEVICE_SPEEDGRADE=6 --component-file="C:/Users/duver/Documents/Quartus/ACELEROMETRO_20_03_2014 - copia/DE0_NANO_GSensor_vhdl/uart.qsys" --language=VHDL
+Progress: Loading DE0_NANO_GSensor_vhdl/uart.qsys
+Progress: Reading input file
+Progress: Adding clk_0 [clock_source 13.1]
+Progress: Parameterizing module clk_0
+Progress: Adding uart_0 [altera_avalon_uart 13.1]
+Progress: Parameterizing module uart_0
+Progress: Building connections
+Progress: Parameterizing connections
+Progress: Validating
+Progress: Done reading input file
+Warning: uart.uart_0: Interrupt sender uart_0.irq is not connected to an interrupt receiver
+Info: uart: Generating uart "uart" for QUARTUS_SYNTH
+Info: pipeline_bridge_swap_transform: After transform: 2 modules, 2 connections
+Info: No custom instruction connections, skipping transform 
+Info: reset_adaptation_transform: After transform: 3 modules, 4 connections
+Info: uart_0: Starting RTL generation for module 'uart_uart_0'
+Info: uart_0:   Generation command is [exec C:/altera/13.1/quartus/bin/perl/bin/perl.exe -I C:/altera/13.1/quartus/bin/perl/lib -I C:/altera/13.1/quartus/sopc_builder/bin/europa -I C:/altera/13.1/quartus/sopc_builder/bin/perl_lib -I C:/altera/13.1/quartus/sopc_builder/bin -I C:/altera/13.1/quartus/../ip/altera/sopc_builder_ip/common -I C:/altera/13.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_uart -- C:/altera/13.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_uart/generate_rtl.pl --name=uart_uart_0 --dir=C:/Users/duver/AppData/Local/Temp/alt6160_3782319738289725277.dir/0001_uart_0_gen/ --quartus_dir=C:/altera/13.1/quartus --verilog --config=C:/Users/duver/AppData/Local/Temp/alt6160_3782319738289725277.dir/0001_uart_0_gen//uart_uart_0_component_configuration.pl  --do_build_sim=0  ]
+Info: uart_0: Done RTL generation for module 'uart_uart_0'
+Info: uart_0: "uart" instantiated altera_avalon_uart "uart_0"
+Info: rst_controller: "uart" instantiated altera_reset_controller "rst_controller"
+Info: uart: Done "uart" with 3 modules, 5 files, 56748 bytes
+Info: ip-generate succeeded.
+Info: Finished: Create HDL design files for synthesis

@@ -1,0 +1,20 @@
+library IEEE;
+use ieee.std_logic_1164.all;
+
+entity DE0_NANO_GSensor is
+	port
+	(
+		-- Input ports
+		CLOCK_50			: in  std_logic;
+		KEY				: in  std_logic_vector[1..0];
+		G_SENSOR_INT	: in  std_logic;
+		
+		-- Inout ports
+		I2C_SDAT			: inout std_logic;
+		
+		-- Output ports
+		I2C_SCLK			: out std_logic;
+		G_SENSOR_CS_N	: out std_logic;
+		LED				: out std_logic_vector[7..0]
+	);
+end DE0_NANO_GSensor;

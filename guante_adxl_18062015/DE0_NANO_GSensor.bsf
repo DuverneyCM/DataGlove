@@ -1,0 +1,120 @@
+/*
+WARNING: Do NOT edit the input and output ports in this file in a text
+editor if you plan to continue editing the block that represents it in
+the Block Editor! File corruption is VERY likely to occur.
+*/
+/*
+Copyright (C) 1991-2013 Altera Corporation
+Your use of Altera Corporation's design tools, logic functions 
+and other software and tools, and its AMPP partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Altera Program License 
+Subscription Agreement, Altera MegaCore Function License 
+Agreement, or other applicable license agreement, including, 
+without limitation, that your use is for the sole purpose of 
+programming logic devices manufactured by Altera and sold by 
+Altera or its authorized distributors.  Please refer to the 
+applicable agreement for further details.
+*/
+(header "symbol" (version "1.1"))
+(symbol
+	(rect 16 16 296 224)
+	(text "DE0_NANO_GSensor" (rect 5 0 100 12)(font "Arial" ))
+	(text "inst" (rect 8 192 20 204)(font "Arial" ))
+	(port
+		(pt 0 32)
+		(input)
+		(text "CLOCK_50" (rect 0 0 49 12)(font "Arial" ))
+		(text "CLOCK_50" (rect 21 27 70 39)(font "Arial" ))
+		(line (pt 0 32)(pt 16 32)(line_width 1))
+	)
+	(port
+		(pt 0 48)
+		(input)
+		(text "KEY[1..0]" (rect 0 0 40 12)(font "Arial" ))
+		(text "KEY[1..0]" (rect 21 43 61 55)(font "Arial" ))
+		(line (pt 0 48)(pt 16 48)(line_width 3))
+	)
+	(port
+		(pt 0 64)
+		(input)
+		(text "G_SENSOR_INT" (rect 0 0 75 12)(font "Arial" ))
+		(text "G_SENSOR_INT" (rect 21 59 96 71)(font "Arial" ))
+		(line (pt 0 64)(pt 16 64)(line_width 1))
+	)
+	(port
+		(pt 0 80)
+		(input)
+		(text "ext_uart_rx" (rect 0 0 47 12)(font "Arial" ))
+		(text "ext_uart_rx" (rect 21 75 68 87)(font "Arial" ))
+		(line (pt 0 80)(pt 16 80)(line_width 1))
+	)
+	(port
+		(pt 280 48)
+		(output)
+		(text "spiControlExt[2..0]" (rect 0 0 73 12)(font "Arial" ))
+		(text "spiControlExt[2..0]" (rect 186 43 259 55)(font "Arial" ))
+		(line (pt 280 48)(pt 264 48)(line_width 3))
+	)
+	(port
+		(pt 280 64)
+		(output)
+		(text "Ax[15..0]" (rect 0 0 36 12)(font "Arial" ))
+		(text "Ax[15..0]" (rect 223 59 259 71)(font "Arial" ))
+		(line (pt 280 64)(pt 264 64)(line_width 3))
+	)
+	(port
+		(pt 280 80)
+		(output)
+		(text "Ay[15..0]" (rect 0 0 37 12)(font "Arial" ))
+		(text "Ay[15..0]" (rect 222 75 259 87)(font "Arial" ))
+		(line (pt 280 80)(pt 264 80)(line_width 3))
+	)
+	(port
+		(pt 280 96)
+		(output)
+		(text "Az[15..0]" (rect 0 0 35 12)(font "Arial" ))
+		(text "Az[15..0]" (rect 224 91 259 103)(font "Arial" ))
+		(line (pt 280 96)(pt 264 96)(line_width 3))
+	)
+	(port
+		(pt 280 112)
+		(output)
+		(text "I2C_SCLK[2..0]" (rect 0 0 66 12)(font "Arial" ))
+		(text "I2C_SCLK[2..0]" (rect 193 107 259 119)(font "Arial" ))
+		(line (pt 280 112)(pt 264 112)(line_width 3))
+	)
+	(port
+		(pt 280 128)
+		(output)
+		(text "G_SENSOR_CS_N[2..0]" (rect 0 0 106 12)(font "Arial" ))
+		(text "G_SENSOR_CS_N[2..0]" (rect 153 123 259 135)(font "Arial" ))
+		(line (pt 280 128)(pt 264 128)(line_width 3))
+	)
+	(port
+		(pt 280 144)
+		(output)
+		(text "ext_uart_tx" (rect 0 0 46 12)(font "Arial" ))
+		(text "ext_uart_tx" (rect 213 139 259 151)(font "Arial" ))
+		(line (pt 280 144)(pt 264 144)(line_width 1))
+	)
+	(port
+		(pt 280 160)
+		(output)
+		(text "LED[7..0]" (rect 0 0 40 12)(font "Arial" ))
+		(text "LED[7..0]" (rect 219 155 259 167)(font "Arial" ))
+		(line (pt 280 160)(pt 264 160)(line_width 3))
+	)
+	(port
+		(pt 280 32)
+		(bidir)
+		(text "I2C_SDAT[2..0]" (rect 0 0 67 12)(font "Arial" ))
+		(text "I2C_SDAT[2..0]" (rect 192 27 259 39)(font "Arial" ))
+		(line (pt 280 32)(pt 264 32)(line_width 3))
+	)
+	(drawing
+		(rectangle (rect 16 16 264 192)(line_width 1))
+	)
+)

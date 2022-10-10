@@ -1,0 +1,22 @@
+library IEEE;
+use ieee.std_logic_1164.all;
+
+entity spipll is
+	port
+	(
+		-- Input ports
+		areset	: in  std_logic;
+		Inclk0	: in  std_logic;
+		
+		-- Output ports
+		c0	: out std_logic;
+		c1	: out std_logic
+	);
+end spipll;
+
+
+architecture rtl of reset_delay is
+
+begin
+	oRST	<=	ICLK;
+end rtl;

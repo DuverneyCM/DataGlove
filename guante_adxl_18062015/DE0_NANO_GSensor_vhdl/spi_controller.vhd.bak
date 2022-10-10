@@ -1,0 +1,64 @@
+library IEEE;
+use ieee.std_logic_1164.all;
+use ieee.std_logic_misc.all;
+
+entity spi_controller is
+	port
+	(
+		-- Input ports
+		R_nW				: in  std_logic;
+		MB					: in  std_logic;
+		iAddress			: in  std_logic_vector(5 downto 0);
+		iData				: in  std_logic_vector(7 downto 0);
+		ISPI_CLK			: in  std_logic;
+		
+		spi_GO			: in  std_logic;
+		IRSTN				: in  std_logic;
+		
+		
+		
+		-- Inout ports
+		SPI_SDIO			: inout std_logic;
+		
+		
+		-- Output ports
+		oSPI_END			: out std_logic;
+		oSPI_CSN			: out std_logic;
+		oDATA_H			: out std_logic_vector(7 downto 0);
+		oSPI_CLK			: out std_logic
+	);
+end spi_controller;
+
+
+architecture rtl of spi_controller is
+
+begin
+
+	read_mode 		<= iP2S_DATA(SI_DataL);	--el bit más significativo de la trama a enviar indica si la trama es de lectura (1) o escritura (0).
+	write_address	<= spi_count(3);	--el bit más significativo del contador está en 1 cuando se está enviando la dirección. En 0 cuando se envían o reciben datos.
+	oSPI_END 		<= NOT(OR_REDUCE(spi_count));	--indica que la cuenta llegó a 0, o sea que ya se completó la transación de una trama de con 1 byte de datos.
+	oSPI_CSN 		<= NOT(iSPI_GO);	--mientres esté activa la señal de sistema spi go, estará activa la señal CSN del spi, lo cual mantiene comunicación entre la fpga y el acelerómetro
+	
+	
+	datapath:
+	process(IRSTN, ISPI_CLK) is 
+		-- Declaration(s) 
+	begin 
+		if(IRSTN = '1') then
+			-- Asynchronous Sequential Statement(s) 
+			spi_count_en 	<= '0';
+			spi_count 		<= "1111";
+		elsif(rising_edge(ISPI_CLK)) then
+		-- Synchronous Sequential Statement(s)
+			
+			
+			
+
+			
+			
+		end if;
+	end process; 
+
+	
+	oSPI_CSN	<=	ISPI_CLK;
+end rtl;

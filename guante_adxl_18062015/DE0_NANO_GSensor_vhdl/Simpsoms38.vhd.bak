@@ -1,0 +1,54 @@
+--IP para doble integracion mediante el metodo de simpsons 3/8
+--El metodo no divide en 8 o por 64 ya que solo representan desplazamientos
+--Tambien porque se desea trabajar solo con numeros enteros
+--Y las divisiones representan tan solo un escalar en el resultado final.
+
+--Simpsoms 3/8
+-- (3/8)*T*[ f(k) + 3*f(k+1) + 3*f(k+2) + f(k+3) ]
+-- N = cantidad de muestras - 1
+-- T = 1/N
+
+
+
+entity Simpsoms38 is
+	generic
+	(
+		channels	:	<type>  :=	<default_value>;
+		NoBits	:	<type>  :=	<default_value>
+	);
+
+	port
+	(
+		-- Input ports
+		clk	: in	std_logic;	
+		reset	: in	std_logic;
+		X0		: in  std_logic_vector(Channels-1 downto 0);
+		-- Output ports
+		Y0		: out std_logic_vector(Channels-1 downto 0)
+	);
+end Simpsoms38;
+
+
+architecture rtl of Simpsoms38 is
+	Signal X1	:	std_logic_vector(Channels-1 downto 0);
+	Signal X2	:	std_logic_vector(Channels-1 downto 0);
+	Signal X3	:	std_logic_vector(Channels-1 downto 0);
+	
+begin
+	X0(i)	<=	X(i) + X3(i);
+	Y0(i) <=	X0(i) + 3*X1(i) + 3*X2(i) + X3(i);
+	
+	<optional_label>:
+	process(reset, clk) is 
+		-- Declaration(s) 
+	begin 
+		if(reset = '1') then
+			-- Asynchronous Sequential Statement(s) 
+		elsif(rising_edge(clk)) then
+			X1	<=	X0;
+			X2	<= X1;
+			X3	<= X2;
+		end if;
+	end process; 
+
+end rtl;

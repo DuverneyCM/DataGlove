@@ -1,0 +1,34 @@
+IP Ports Diff Report for uart
+Mon Sep 02 16:29:39 2019
+Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
+
+
+---------------------
+; Table of Contents ;
+---------------------
+  1. IP Information
+  2. IP Ports Diff Table
+
+
+
++------------------------------------------------+
+; IP Information                                 ;
++----------------------+-------------------------+
+; IP Variation Name    ; uart                    ;
+; Prior Version        ; ACDS_v13.1              ;
+; New Version          ; ACDS_v18.1              ;
+; New File             ; uart/synthesis/uart.vhd ;
+; Has Port Differences ; Yes                     ;
++----------------------+-------------------------+
+
+
++-----------------------------------------------------------------------------------------------------------------------+
+; IP Ports Diff Table                                                                                                   ;
++-------------+-------------------------+------------------+----------------+----------------------+--------------------+
+; Change Type ; Port Name               ; Prior Port Range ; New Port Range ; Prior Port direction ; New Port direction ;
++-------------+-------------------------+------------------+----------------+----------------------+--------------------+
+; Deleted     ; uart_0_s1_dataavailable ; std_logic        ; -              ; output               ; -                  ;
+; Deleted     ; uart_0_s1_readyfordata  ; std_logic        ; -              ; output               ; -                  ;
++-------------+-------------------------+------------------+----------------+----------------------+--------------------+
+
+

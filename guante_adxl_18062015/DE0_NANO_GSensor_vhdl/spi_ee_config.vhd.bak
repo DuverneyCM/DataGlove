@@ -1,0 +1,29 @@
+library IEEE;
+use ieee.std_logic_1164.all;
+
+entity spi_ee_config is
+	port
+	(
+		-- Input ports
+		IG_INT2			: in  std_logic;
+		IRSTN				: in  std_logic;
+		ISPI_CLK			: in  std_logic;
+		ISPI_CLK_OUT	: in  std_logic;
+		
+		-- Inout ports
+		SPI_SDIO			: inout std_logic;
+		
+		-- Output ports
+		oSPI_CLK			: out std_logic;
+		OSPI_CSN			: out std_logic;
+		oDATA_L			: out std_logic_vector(7 downto 0);
+		oDATA_H			: out std_logic_vector(7 downto 0)
+	);
+end spi_ee_config;
+
+
+architecture rtl of spi_ee_config is
+
+begin
+	oRST	<=	ICLK;
+end rtl;

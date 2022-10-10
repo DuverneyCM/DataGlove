@@ -1,0 +1,23 @@
+library IEEE;
+use ieee.std_logic_1164.all;
+
+entity led_driver is
+	port
+	(
+		-- Input ports
+		ICLK		: in  std_logic;
+		IG_INT2	: in	std_logic;
+		IRSTN		: in	std_logic;
+		IDIG		: in  std_logic_vector(9 downto 0);
+		
+		-- Output ports
+		oLED	: out std_logic_vector(7 downto 0)
+	);
+end led_driver;
+
+
+architecture rtl of led_driver is
+
+begin
+	oLED	<=	IDIG(7 downto 0);
+end rtl;

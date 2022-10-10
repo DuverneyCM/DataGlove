@@ -1,0 +1,37 @@
+library IEEE;
+use ieee.std_logic_1164.all;
+use ieee.std_logic_unsigned.all;
+
+entity muestreo is
+	port
+	(
+		-- Input ports
+		reset	: in  std_logic;
+		clk	: in  std_logic;
+
+		-- Output ports
+		start	: out std_logic
+	);
+end muestreo;
+
+architecture rtl of muestreo is
+signal	cnt	:	std_logic_vector(10 downto 0); --2M -> 100 ~ 2000ciclos
+begin
+	process(reset, clk) is 
+		
+	begin 
+		if(reset = '1') then
+			cnt <= (others => '0'); 
+		elsif(rising_edge(clk)) then
+			if(cnt = "11111010000") then --2000
+				cnt <= (others => '0');
+			else
+				cnt <= cnt + 1;
+			end if;
+		end if;
+	end process; 
+	
+	start <= '1' when (cnt < 2) else '0';
+
+
+end rtl;

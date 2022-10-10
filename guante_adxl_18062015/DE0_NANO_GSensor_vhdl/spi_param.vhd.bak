@@ -1,0 +1,38 @@
+Package spi_param is
+	-- Data MSB Bit
+	constant	IDLE_MSB			:	natural	:=	14;
+	constant	SI_DataL			:	natural	:=	15;
+	constant	SO_DataL			:	natural	:=	7;
+
+	-- Write/Read Mode 
+	constant	WRITE_MODE		:	std_logic_vector	:=	"00";
+	constant	READ_MODE		:	std_logic_vector	:=	"10";
+
+	-- Initial Reg Number 
+	constant	INI_NUMBER		:	std_logic_vector	:=	"0011";
+
+	// SPI State 
+	constant	IDLE		   	:	std_logic	:=	'0';
+	constant	TRANSFER			:	std_logic	:=	'1';
+
+	-- Write Reg Address 
+	constant	BW_RATE			:	std_logic_vector	:=	"101100";
+	constant	POWER_CONTROL	:	std_logic_vector	:=	"101101";
+	constant	DATA_FORMAT		:	std_logic_vector	:=	"110001";
+	constant	INT_ENABLE		:	std_logic_vector	:=	"101110";
+	constant	INT_MAP			:	std_logic_vector	:=	"101111";
+	constant	THRESH_ACT		:	std_logic_vector	:=	"100100";
+	constant	THRESH_INACT	:	std_logic_vector	:=	"100101";
+	constant	TIME_INACT		:	std_logic_vector	:=	"100110";
+	constant	ACT_INACT_CTL	:	std_logic_vector	:=	"100111";
+	constant	THRESH_FF		:	std_logic_vector	:=	"101000";
+	constant	TIME_FF			:	std_logic_vector	:=	"101001";
+
+	-- Read Reg Address
+	constant	INT_SOURCE		:	std_logic_vector	:=	"110000"; -- INT Status
+	constant	X_LB 			   :	std_logic_vector	:=	"110010"; -- Low Byte
+	constant	X_HB			   :	std_logic_vector	:=	"110011"; -- High Byte
+	constant	Y_LB			   :	std_logic_vector	:=	"110100"; -- Low Byte 
+	constant	Y_HB			   :	std_logic_vector	:=	"110101"; -- High Byte
+	constant	Z_LB			   :	std_logic_vector	:=	"110110"; -- Low Byte 
+	constant	Z_HB			   :	std_logic_vector	:=	"110111"; -- High Byte

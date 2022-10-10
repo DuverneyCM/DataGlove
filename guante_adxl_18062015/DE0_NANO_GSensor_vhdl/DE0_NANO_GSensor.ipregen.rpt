@@ -1,0 +1,154 @@
+IP Upgrade report for DE0_NANO_GSensor
+Mon Sep 02 16:29:39 2019
+Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Lite Edition
+
+
+---------------------
+; Table of Contents ;
+---------------------
+  1. Legal Notice
+  2. IP Upgrade Summary
+  3. Successfully Upgraded IP Components
+  4. IP Upgrade Messages
+
+
+
+----------------
+; Legal Notice ;
+----------------
+Copyright (C) 2018  Intel Corporation. All rights reserved.
+Your use of Intel Corporation's design tools, logic functions 
+and other software and tools, and its AMPP partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Intel Program License 
+Subscription Agreement, the Intel Quartus Prime License Agreement,
+the Intel FPGA IP License Agreement, or other applicable license
+agreement, including, without limitation, that your use is for
+the sole purpose of programming logic devices manufactured by
+Intel and sold by Intel or its authorized distributors.  Please
+refer to the applicable agreement for further details.
+
+
+
++----------------------------------------------------------------------------+
+; IP Upgrade Summary                                                         ;
++------------------------------+---------------------------------------------+
+; IP Components Upgrade Status ; Passed - Mon Sep 02 16:29:39 2019           ;
+; Quartus Prime Version        ; 18.1.0 Build 625 09/12/2018 SJ Lite Edition ;
+; Revision Name                ; DE0_NANO_GSensor                            ;
+; Top-level Entity Name        ; DE0_NANO_GSensor                            ;
+; Family                       ; Cyclone IV E                                ;
++------------------------------+---------------------------------------------+
+
+
++-----------------------------------------------------------------------------------------------------------------------------+
+; Successfully Upgraded IP Components                                                                                         ;
++-------------+----------------+---------+-------------------------+----------------------+-------------------------+---------+
+; Entity Name ; Component Name ; Version ; Original Source File    ; Generation File Path ; New Source File         ; Message ;
++-------------+----------------+---------+-------------------------+----------------------+-------------------------+---------+
+; uart        ; Qsys           ; 13.1    ; uart/synthesis/uart.qip ; uart.qsys            ; uart/synthesis/uart.qip ;         ;
+; spipll      ; ALTPLL         ; 15.0    ; spipll.qip              ; spipll.vhd           ; spipll.qip              ;         ;
++-------------+----------------+---------+-------------------------+----------------------+-------------------------+---------+
+
+
++---------------------+
+; IP Upgrade Messages ;
++---------------------+
+Info (11902): Backing up file "uart.qsys" to "uart.BAK.qsys"
+Info (11902): Backing up file "uart/synthesis/uart.vhd" to "uart.BAK.vhd"
+Info (11837): Started upgrading IP component Qsys with file "uart.qsys"
+Info: 2019.09.02.16:29:30 Info: Starting to upgrade the IP cores in the Platform Designer system
+Info: 2019.09.02.16:29:30 Info: Finished upgrading the ip cores
+Info: 2019.09.02.16:29:34 Info: Saving generation log to E:/ToshibaBackup/Windows/Duver/trabajo de grado/guante_adxl_18062015/DE0_NANO_GSensor_vhdl/uart
+Info: 2019.09.02.16:29:34 Info: Starting: Create simulation model
+Info: 2019.09.02.16:29:34 Info: qsys-generate "E:\ToshibaBackup\Windows\Duver\trabajo de grado\guante_adxl_18062015\DE0_NANO_GSensor_vhdl\uart.qsys" --simulation=VHDL --allow-mixed-language-simulation --output-directory="E:\ToshibaBackup\Windows\Duver\trabajo de grado\guante_adxl_18062015\DE0_NANO_GSensor_vhdl\uart\simulation" --family="Cyclone IV E" --part=EP4CE22F17C6
+Info: 2019.09.02.16:29:34 Info: Loading DE0_NANO_GSensor_vhdl
+Info: 2019.09.02.16:29:34 Info: Reading input file
+Info: 2019.09.02.16:29:34 Info: Adding clk_0 [clock_source 18.1]
+Info: 2019.09.02.16:29:34 Info: Parameterizing module clk_0
+Info: 2019.09.02.16:29:34 Info: Adding uart_0 [altera_avalon_uart 18.1]
+Info: 2019.09.02.16:29:34 Info: Parameterizing module uart_0
+Info: 2019.09.02.16:29:34 Info: Building connections
+Info: 2019.09.02.16:29:34 Info: Parameterizing connections
+Info: 2019.09.02.16:29:34 Info: Validating
+Info: 2019.09.02.16:29:34 Info: Done reading input file
+Warning: 2019.09.02.16:29:35 Warning: uart.uart_0: Interrupt sender uart_0.irq is not connected to an interrupt receiver
+Info: 2019.09.02.16:29:35 Info: uart: Generating uart "uart" for SIM_VHDL
+Info: 2019.09.02.16:29:35 Info: uart_0: Starting RTL generation for module 'uart_uart_0'
+Info: 2019.09.02.16:29:35 Info: uart_0:   Generation command is [exec C:/intelfpga_lite/18.1/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga_lite/18.1/quartus/bin64/perl/lib -I C:/intelfpga_lite/18.1/quartus/sopc_builder/bin/europa -I C:/intelfpga_lite/18.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga_lite/18.1/quartus/sopc_builder/bin -I C:/intelfpga_lite/18.1/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga_lite/18.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_uart -- C:/intelfpga_lite/18.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_uart/generate_rtl.pl --name=uart_uart_0 --dir=C:/Users/LOIC-01/AppData/Local/Temp/alt8141_5852999532833742733.dir/0002_uart_0_gen/ --quartus_dir=C:/intelfpga_lite/18.1/quartus --vhdl --config=C:/Users/LOIC-01/AppData/Local/Temp/alt8141_5852999532833742733.dir/0002_uart_0_gen//uart_uart_0_component_configuration.pl  --do_build_sim=1    --sim_dir=C:/Users/LOIC-01/AppData/Local/Temp/alt8141_5852999532833742733.dir/0002_uart_0_gen
+Info: 2019.09.02.16:29:36 Info: uart_0: Done RTL generation for module 'uart_uart_0'
+Info: 2019.09.02.16:29:36 Info: uart_0: "uart" instantiated altera_avalon_uart "uart_0"
+Info: 2019.09.02.16:29:36 Info: rst_controller: "uart" instantiated altera_reset_controller "rst_controller"
+Info: 2019.09.02.16:29:36 Info: uart: Done "uart" with 3 modules, 5 files
+Info: 2019.09.02.16:29:36 Info: qsys-generate succeeded.
+Info: 2019.09.02.16:29:36 Info: Finished: Create simulation model
+Info: 2019.09.02.16:29:36 Info: Starting: Create Modelsim Project.
+Info: 2019.09.02.16:29:36 Info: Doing: ip-make-simscript --spd=E:\ToshibaBackup\Windows\Duver\trabajo de grado\guante_adxl_18062015\DE0_NANO_GSensor_vhdl\uart\uart.spd --output-directory=E:/ToshibaBackup/Windows/Duver/trabajo de grado/guante_adxl_18062015/DE0_NANO_GSensor_vhdl/uart/simulation
+Info: 2019.09.02.16:29:36 Info: Generating the following file(s) for MODELSIM simulator in E:/ToshibaBackup/Windows/Duver/trabajo de grado/guante_adxl_18062015/DE0_NANO_GSensor_vhdl/uart/simulation
+Info: 2019.09.02.16:29:36 Info:     mentor
+Info: 2019.09.02.16:29:36 Info: Skipping VCS script generation since VHDL file $QUARTUS_INSTALL_DIR/eda/sim_lib
+Info: 2019.09.02.16:29:36 Info: Generating the following file(s) for VCSMX simulator in E:/ToshibaBackup/Windows/Duver/trabajo de grado/guante_adxl_18062015/DE0_NANO_GSensor_vhdl/uart/simulation
+Info: 2019.09.02.16:29:36 Info:     synopsys/vcsmx
+Info: 2019.09.02.16:29:36 Info:     synopsys/vcsmx
+Info: 2019.09.02.16:29:36 Info: Generating the following file(s) for NCSIM simulator in E:/ToshibaBackup/Windows/Duver/trabajo de grado/guante_adxl_18062015/DE0_NANO_GSensor_vhdl/uart/simulation
+Info: 2019.09.02.16:29:36 Info:     cadence
+Info: 2019.09.02.16:29:36 Info:     cadence
+Info: 2019.09.02.16:29:36 Info:     cadence
+Info: 2019.09.02.16:29:36 Info:     2 .cds.lib files in cadence/cds_libs
+Info: 2019.09.02.16:29:36 Info: Generating the following file(s) for RIVIERA simulator in E:/ToshibaBackup/Windows/Duver/trabajo de grado/guante_adxl_18062015/DE0_NANO_GSensor_vhdl/uart/simulation
+Info: 2019.09.02.16:29:36 Info:     aldec
+Info: 2019.09.02.16:29:36 Info: For information on how to simulate your IP, see the explanatory comments in the simulator-specific subdirectories under E:/ToshibaBackup/Windows/Duver/trabajo de grado/guante_adxl_18062015/DE0_NANO_GSensor_vhdl/uart/simulation
+Info: 2019.09.02.16:29:36 Info: Regenerate these scripts whenever you make any change to any Quartus-generated IP in your project.
+Info: 2019.09.02.16:29:36 Info: Finished: Create Modelsim Project.
+Info: 2019.09.02.16:29:36 Info: Starting: Create block symbol file (.bsf)
+Info: 2019.09.02.16:29:36 Info: qsys-generate "E:\ToshibaBackup\Windows\Duver\trabajo de grado\guante_adxl_18062015\DE0_NANO_GSensor_vhdl\uart.qsys" --block-symbol-file --output-directory="E:\ToshibaBackup\Windows\Duver\trabajo de grado\guante_adxl_18062015\DE0_NANO_GSensor_vhdl\uart" --family="Cyclone IV E" --part=EP4CE22F17C6
+Info: 2019.09.02.16:29:36 Info: Loading DE0_NANO_GSensor_vhdl
+Info: 2019.09.02.16:29:36 Info: Reading input file
+Info: 2019.09.02.16:29:36 Info: Adding clk_0 [clock_source 18.1]
+Info: 2019.09.02.16:29:36 Info: Parameterizing module clk_0
+Info: 2019.09.02.16:29:36 Info: Adding uart_0 [altera_avalon_uart 18.1]
+Info: 2019.09.02.16:29:36 Info: Parameterizing module uart_0
+Info: 2019.09.02.16:29:36 Info: Building connections
+Info: 2019.09.02.16:29:36 Info: Parameterizing connections
+Info: 2019.09.02.16:29:36 Info: Validating
+Info: 2019.09.02.16:29:36 Info: Done reading input file
+Warning: 2019.09.02.16:29:37 Warning: uart.uart_0: Interrupt sender uart_0.irq is not connected to an interrupt receiver
+Info: 2019.09.02.16:29:37 Info: qsys-generate succeeded.
+Info: 2019.09.02.16:29:37 Info: Finished: Create block symbol file (.bsf)
+Info: 2019.09.02.16:29:37 Info:
+Info: 2019.09.02.16:29:37 Info: Starting: Create HDL design files for synthesis
+Info: 2019.09.02.16:29:37 Info: qsys-generate "E:\ToshibaBackup\Windows\Duver\trabajo de grado\guante_adxl_18062015\DE0_NANO_GSensor_vhdl\uart.qsys" --synthesis=VHDL --output-directory="E:\ToshibaBackup\Windows\Duver\trabajo de grado\guante_adxl_18062015\DE0_NANO_GSensor_vhdl\uart\synthesis" --family="Cyclone IV E" --part=EP4CE22F17C6
+Info: 2019.09.02.16:29:37 Info: Loading DE0_NANO_GSensor_vhdl
+Info: 2019.09.02.16:29:37 Info: Reading input file
+Info: 2019.09.02.16:29:37 Info: Adding clk_0 [clock_source 18.1]
+Info: 2019.09.02.16:29:37 Info: Parameterizing module clk_0
+Info: 2019.09.02.16:29:37 Info: Adding uart_0 [altera_avalon_uart 18.1]
+Info: 2019.09.02.16:29:37 Info: Parameterizing module uart_0
+Info: 2019.09.02.16:29:37 Info: Building connections
+Info: 2019.09.02.16:29:37 Info: Parameterizing connections
+Info: 2019.09.02.16:29:37 Info: Validating
+Info: 2019.09.02.16:29:37 Info: Done reading input file
+Warning: 2019.09.02.16:29:37 Warning: uart.uart_0: Interrupt sender uart_0.irq is not connected to an interrupt receiver
+Info: 2019.09.02.16:29:37 Info: uart: Generating uart "uart" for QUARTUS_SYNTH
+Info: 2019.09.02.16:29:37 Info: uart_0: Starting RTL generation for module 'uart_uart_0'
+Info: 2019.09.02.16:29:37 Info: uart_0:   Generation command is [exec C:/intelfpga_lite/18.1/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga_lite/18.1/quartus/bin64/perl/lib -I C:/intelfpga_lite/18.1/quartus/sopc_builder/bin/europa -I C:/intelfpga_lite/18.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga_lite/18.1/quartus/sopc_builder/bin -I C:/intelfpga_lite/18.1/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga_lite/18.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_uart -- C:/intelfpga_lite/18.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_uart/generate_rtl.pl --name=uart_uart_0 --dir=C:/Users/LOIC-01/AppData/Local/Temp/alt8141_5852999532833742733.dir/0005_uart_0_gen/ --quartus_dir=C:/intelfpga_lite/18.1/quartus --verilog --config=C:/Users/LOIC-01/AppData/Local/Temp/alt8141_5852999532833742733.dir/0005_uart_0_gen/
+Info: 2019.09.02.16:29:38 Info: uart_0: Done RTL generation for module 'uart_uart_0'
+Info: 2019.09.02.16:29:38 Info: uart_0: "uart" instantiated altera_avalon_uart "uart_0"
+Info: 2019.09.02.16:29:38 Info: rst_controller: "uart" instantiated altera_reset_controller "rst_controller"
+Info: 2019.09.02.16:29:38 Info: uart: Done "uart" with 3 modules, 5 files
+Info: 2019.09.02.16:29:38 Info: qsys-generate succeeded.
+Info: 2019.09.02.16:29:38 Info: Finished: Create HDL design files for synthesis
+Info (11902): Backing up file "spipll.vhd" to "spipll.BAK.vhd"
+Info (11837): Started upgrading IP component ALTPLL with file "spipll.vhd"
+Info (11131): Completed upgrading IP component Qsys with file "uart.qsys"
+Info (11131): Completed upgrading IP component ALTPLL with file "spipll.vhd"
+Info (23030): Evaluation of Tcl script c:/intelfpga_lite/18.1/quartus/common/tcl/internal/ip_regen/ip_regen.tcl was successful
+Info: Quartus Prime Shell was successful. 0 errors, 3 warnings
+    Info: Peak virtual memory: 4892 megabytes
+    Info: Processing ended: Mon Sep 02 16:29:39 2019
+    Info: Elapsed time: 00:00:20
+    Info: Total CPU time (on all processors): 00:00:43
+
+

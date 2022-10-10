@@ -1,0 +1,248 @@
+library ieee;
+use ieee.std_logic_1164.all;
+use work.spi_param.all;
+
+entity fsm_uart_angle is
+	port(
+		clk		: in	std_logic;
+		reset	 	: in	std_logic;
+		start		: in	std_logic;
+		
+		s1_readyfordata 		: in	std_logic; --flag
+		s1_dataavailable		: in	std_logic; --flag
+	
+		s1_read_n				: out	std_logic; --control
+		s1_write_n				: out	std_logic; --control
+		s1_begintransfer 		: out std_logic; --control
+		
+		angulos					: in	tipoAngulos
+		signos					: in	std_logic_vector(15 downto 0);
+		writedata_out			: out std_logic_vector(15 downto 0)
+	);
+end entity;
+
+architecture rtl of fsm_uart_angle is
+	-- Build an enumerated type for the state machine
+	type state_type is (s0, s1, s2, s3, s4);
+	-- Register to hold the current state
+	signal	state		:	state_type;
+	signal	setup		:	std_logic;
+	signal	cnt, adx, subadx		:	integer range 0 to 255;
+	
+	constant	Setup_step	:	natural	:=	17*6 - 1 + 6;--No_ADX*6 - 1 + 6;
+	constant	saltos		:	natural	:=	16;
+
+begin
+	s1_read_n	<=	'0';
+	s1_write_n	<=	'0';
+	--LOGICA DE TRANSICIONES
+	process (clk, reset)
+	begin
+		if reset = '1' then
+			state <= s0;
+			cnt	<=	0;
+		elsif (rising_edge(clk)) then
+			case state is
+				when s0=>
+					if start = '1' then
+						state <= s1;
+					else
+						state <= s0;
+					end if;
+				when s1=>
+					if s1_readyfordata = '1' then --no busy
+						state <= s2;
+					else
+						state <= s1;
+					end if;
+				when s2=>
+					if s1_readyfordata = '0' then --busy
+						state <= s3;
+					else
+						state <= s2;
+					end if;
+				when s3=>
+					if s1_readyfordata = '1' then --no busy, datos enviados
+						state <= s4;
+					else
+						state <= s3;
+					end if;	
+					
+				when s4=>
+					if	cnt < Setup_step	then
+						cnt	<=	cnt + 1;
+						state <= s1; --Enviar otro dato
+					else
+						state <= s0; --Fin de envio
+						cnt	<=	0;
+					end if;
+					
+				when others	=>	null;
+			end case;
+		end if;
+	end process;
+
+	--LOGICA DE SALIDAS
+	--impulso de inicio
+	--cuando los datos estén listos para enviarsen o recibirsen, se reporta mediante flags
+	--por ahora, solo se desean enviar datos de la FPGA al pc, por lo que solo es importante activar el envio de datos y observar el flag s1_dataavailable
+	--como son 6 bytes por acelerometro, se deben enviar 6*No_ADX veces y el valor de cnt permite seleccionar el dato a enviar.
+	--cuando cnt = 6*No_ADX veces debe detener el envío de datos y esperar a ser estimulado de nuevo para volver a enviar datos.
+	
+	process (state)
+	begin
+		case state is
+			when s0 =>
+				s1_begintransfer	<=	'0';	--activo bajo
+			when s1 =>
+				s1_begintransfer	<=	'0';	
+			when s2 =>
+				s1_begintransfer	<=	'1';	
+			when s3 =>
+				s1_begintransfer	<=	'0';
+			when s4 =>
+				s1_begintransfer	<=	'0';
+		end case;
+	end process;
+	
+	process (cnt, data_in)
+	begin
+		case cnt is
+			--preambulo
+			when 0 =>		writedata_out <= "00000000" & "10101010";
+			when 1 =>		writedata_out <= "00000000" & "01010101";
+			when 2 =>		writedata_out <= "00000000" & "01010101";
+			when 3 =>		writedata_out <= "00000000" & "01010101";
+			when 4 =>		writedata_out <= "00000000" & "01010101";
+			when 5 =>		writedata_out <= "00000000" & "10101010";
+			
+			--datos
+			--adx1
+			when 6 =>		writedata_out <= "00000000" & data_in(1)(0*8 + 7 downto 0*8);--"00110000";--data_in(0)(0*8 + 7 downto 0*8);
+			when 7 =>		writedata_out <= "00000000" & data_in(1)(1*8 + 7 downto 1*8);--"00110001";--data_in(0)(1*8 + 7 downto 1*8);
+			when 8 =>		writedata_out <= "00000000" & data_in(1)(2*8 + 7 downto 2*8);--"00110010";--data_in(0)(2*8 + 7 downto 2*8);
+			when 9 =>		writedata_out <= "00000000" & data_in(1)(3*8 + 7 downto 3*8);--"00110011";--data_in(0)(3*8 + 7 downto 3*8);
+			when 10 =>		writedata_out <= "00000000" & data_in(1)(4*8 + 7 downto 4*8);--"00110100";--data_in(0)(4*8 + 7 downto 4*8);
+			when 11 =>		writedata_out <= "00000000" & data_in(1)(5*8 + 7 downto 5*8);--"00110101";--data_in(0)(5*8 + 7 downto 5*8);
+			--adx2
+			when 12 =>		writedata_out <= "00000000" & data_in(2)(0*8 + 7 downto 0*8);--"00110000";--data_in(0)(0*8 + 7 downto 0*8);
+			when 13 =>		writedata_out <= "00000000" & data_in(2)(1*8 + 7 downto 1*8);--"00110001";--data_in(0)(1*8 + 7 downto 1*8);
+			when 14 =>		writedata_out <= "00000000" & data_in(2)(2*8 + 7 downto 2*8);--"00110010";--data_in(0)(2*8 + 7 downto 2*8);
+			when 15 =>		writedata_out <= "00000000" & data_in(2)(3*8 + 7 downto 3*8);--"00110011";--data_in(0)(3*8 + 7 downto 3*8);
+			when 16 =>		writedata_out <= "00000000" & data_in(2)(4*8 + 7 downto 4*8);--"00110100";--data_in(0)(4*8 + 7 downto 4*8);
+			when 17 =>		writedata_out <= "00000000" & data_in(2)(5*8 + 7 downto 5*8);--"00110101";--data_in(0)(5*8 + 7 downto 5*8);
+			--adx3
+			when 18 =>		writedata_out <= "00000000" & data_in(3)(0*8 + 7 downto 0*8);--"00110000";--data_in(0)(0*8 + 7 downto 0*8);
+			when 19 =>		writedata_out <= "00000000" & data_in(3)(1*8 + 7 downto 1*8);--"00110001";--data_in(0)(1*8 + 7 downto 1*8);
+			when 20 =>		writedata_out <= "00000000" & data_in(3)(2*8 + 7 downto 2*8);--"00110010";--data_in(0)(2*8 + 7 downto 2*8);
+			when 21 =>		writedata_out <= "00000000" & data_in(3)(3*8 + 7 downto 3*8);--"00110011";--data_in(0)(3*8 + 7 downto 3*8);
+			when 22 =>		writedata_out <= "00000000" & data_in(3)(4*8 + 7 downto 4*8);--"00110100";--data_in(0)(4*8 + 7 downto 4*8);
+			when 23 =>		writedata_out <= "00000000" & data_in(3)(5*8 + 7 downto 5*8);--"00110101";--data_in(0)(5*8 + 7 downto 5*8);
+			--adx4
+			when 24 =>		writedata_out <= "00000000" & data_in(4)(0*8 + 7 downto 0*8);--"00110000";--data_in(0)(0*8 + 7 downto 0*8);
+			when 25 =>		writedata_out <= "00000000" & data_in(4)(1*8 + 7 downto 1*8);--"00110001";--data_in(0)(1*8 + 7 downto 1*8);
+			when 26 =>		writedata_out <= "00000000" & data_in(4)(2*8 + 7 downto 2*8);--"00110010";--data_in(0)(2*8 + 7 downto 2*8);
+			when 27 =>		writedata_out <= "00000000" & data_in(4)(3*8 + 7 downto 3*8);--"00110011";--data_in(0)(3*8 + 7 downto 3*8);
+			when 28 =>		writedata_out <= "00000000" & data_in(4)(4*8 + 7 downto 4*8);--"00110100";--data_in(0)(4*8 + 7 downto 4*8);
+			when 29 =>		writedata_out <= "00000000" & data_in(4)(5*8 + 7 downto 5*8);--"00110101";--data_in(0)(5*8 + 7 downto 5*8);
+			--adx5
+			when 30 =>		writedata_out <= "00000000" & data_in(5)(0*8 + 7 downto 0*8);--"00110000";--data_in(0)(0*8 + 7 downto 0*8);
+			when 31 =>		writedata_out <= "00000000" & data_in(5)(1*8 + 7 downto 1*8);--"00110001";--data_in(0)(1*8 + 7 downto 1*8);
+			when 32 =>		writedata_out <= "00000000" & data_in(5)(2*8 + 7 downto 2*8);--"00110010";--data_in(0)(2*8 + 7 downto 2*8);
+			when 33 =>		writedata_out <= "00000000" & data_in(5)(3*8 + 7 downto 3*8);--"00110011";--data_in(0)(3*8 + 7 downto 3*8);
+			when 34 =>		writedata_out <= "00000000" & data_in(5)(4*8 + 7 downto 4*8);--"00110100";--data_in(0)(4*8 + 7 downto 4*8);
+			when 35 =>		writedata_out <= "00000000" & data_in(5)(5*8 + 7 downto 5*8);--"00110101";--data_in(0)(5*8 + 7 downto 5*8);
+			--adx6
+			when 36 =>		writedata_out <= "00000000" & data_in(6)(0*8 + 7 downto 0*8);--"00110000";--data_in(0)(0*8 + 7 downto 0*8);
+			when 37 =>		writedata_out <= "00000000" & data_in(6)(1*8 + 7 downto 1*8);--"00110001";--data_in(0)(1*8 + 7 downto 1*8);
+			when 38 =>		writedata_out <= "00000000" & data_in(6)(2*8 + 7 downto 2*8);--"00110010";--data_in(0)(2*8 + 7 downto 2*8);
+			when 39 =>		writedata_out <= "00000000" & data_in(6)(3*8 + 7 downto 3*8);--"00110011";--data_in(0)(3*8 + 7 downto 3*8);
+			when 40 =>		writedata_out <= "00000000" & data_in(6)(4*8 + 7 downto 4*8);--"00110100";--data_in(0)(4*8 + 7 downto 4*8);
+			when 41 =>		writedata_out <= "00000000" & data_in(6)(5*8 + 7 downto 5*8);--"00110101";--data_in(0)(5*8 + 7 downto 5*8);
+			--adx7
+			when 42 =>		writedata_out <= "00000000" & data_in(7)(0*8 + 7 downto 0*8);--"00110000";--data_in(0)(0*8 + 7 downto 0*8);
+			when 43 =>		writedata_out <= "00000000" & data_in(7)(1*8 + 7 downto 1*8);--"00110001";--data_in(0)(1*8 + 7 downto 1*8);
+			when 44 =>		writedata_out <= "00000000" & data_in(7)(2*8 + 7 downto 2*8);--"00110010";--data_in(0)(2*8 + 7 downto 2*8);
+			when 45 =>		writedata_out <= "00000000" & data_in(7)(3*8 + 7 downto 3*8);--"00110011";--data_in(0)(3*8 + 7 downto 3*8);
+			when 46 =>		writedata_out <= "00000000" & data_in(7)(4*8 + 7 downto 4*8);--"00110100";--data_in(0)(4*8 + 7 downto 4*8);
+			when 47 =>		writedata_out <= "00000000" & data_in(7)(5*8 + 7 downto 5*8);--"00110101";--data_in(0)(5*8 + 7 downto 5*8);
+			--adx8
+			when 48 =>		writedata_out <= "00000000" & data_in(8)(0*8 + 7 downto 0*8);--"00110000";--data_in(0)(0*8 + 7 downto 0*8);
+			when 49 =>		writedata_out <= "00000000" & data_in(8)(1*8 + 7 downto 1*8);--"00110001";--data_in(0)(1*8 + 7 downto 1*8);
+			when 50 =>		writedata_out <= "00000000" & data_in(8)(2*8 + 7 downto 2*8);--"00110010";--data_in(0)(2*8 + 7 downto 2*8);
+			when 51 =>		writedata_out <= "00000000" & data_in(8)(3*8 + 7 downto 3*8);--"00110011";--data_in(0)(3*8 + 7 downto 3*8);
+			when 52 =>		writedata_out <= "00000000" & data_in(8)(4*8 + 7 downto 4*8);--"00110100";--data_in(0)(4*8 + 7 downto 4*8);
+			when 53 =>		writedata_out <= "00000000" & data_in(8)(5*8 + 7 downto 5*8);--"00110101";--data_in(0)(5*8 + 7 downto 5*8);
+			--adx9
+			when 54 =>		writedata_out <= "00000000" & data_in(9)(0*8 + 7 downto 0*8);--"00110000";--data_in(0)(0*8 + 7 downto 0*8);
+			when 55 =>		writedata_out <= "00000000" & data_in(9)(1*8 + 7 downto 1*8);--"00110001";--data_in(0)(1*8 + 7 downto 1*8);
+			when 56 =>		writedata_out <= "00000000" & data_in(9)(2*8 + 7 downto 2*8);--"00110010";--data_in(0)(2*8 + 7 downto 2*8);
+			when 57 =>		writedata_out <= "00000000" & data_in(9)(3*8 + 7 downto 3*8);--"00110011";--data_in(0)(3*8 + 7 downto 3*8);
+			when 58 =>		writedata_out <= "00000000" & data_in(9)(4*8 + 7 downto 4*8);--"00110100";--data_in(0)(4*8 + 7 downto 4*8);
+			when 59 =>		writedata_out <= "00000000" & data_in(9)(5*8 + 7 downto 5*8);--"00110101";--data_in(0)(5*8 + 7 downto 5*8);
+			--adx10
+			when 60 =>		writedata_out <= "00000000" & data_in(10)(0*8 + 7 downto 0*8);--"00110000";--data_in(0)(0*8 + 7 downto 0*8);
+			when 61 =>		writedata_out <= "00000000" & data_in(10)(1*8 + 7 downto 1*8);--"00110001";--data_in(0)(1*8 + 7 downto 1*8);
+			when 62 =>		writedata_out <= "00000000" & data_in(10)(2*8 + 7 downto 2*8);--"00110010";--data_in(0)(2*8 + 7 downto 2*8);
+			when 63 =>		writedata_out <= "00000000" & data_in(10)(3*8 + 7 downto 3*8);--"00110011";--data_in(0)(3*8 + 7 downto 3*8);
+			when 64 =>		writedata_out <= "00000000" & data_in(10)(4*8 + 7 downto 4*8);--"00110100";--data_in(0)(4*8 + 7 downto 4*8);
+			when 65 =>		writedata_out <= "00000000" & data_in(10)(5*8 + 7 downto 5*8);--"00110101";--data_in(0)(5*8 + 7 downto 5*8);
+			--adx11
+			when 66 =>		writedata_out <= "00000000" & data_in(11)(0*8 + 7 downto 0*8);--"00110000";--data_in(0)(0*8 + 7 downto 0*8);
+			when 67 =>		writedata_out <= "00000000" & data_in(11)(1*8 + 7 downto 1*8);--"00110001";--data_in(0)(1*8 + 7 downto 1*8);
+			when 68 =>		writedata_out <= "00000000" & data_in(11)(2*8 + 7 downto 2*8);--"00110010";--data_in(0)(2*8 + 7 downto 2*8);
+			when 69 =>		writedata_out <= "00000000" & data_in(11)(3*8 + 7 downto 3*8);--"00110011";--data_in(0)(3*8 + 7 downto 3*8);
+			when 70 =>		writedata_out <= "00000000" & data_in(11)(4*8 + 7 downto 4*8);--"00110100";--data_in(0)(4*8 + 7 downto 4*8);
+			when 71 =>		writedata_out <= "00000000" & data_in(11)(5*8 + 7 downto 5*8);--"00110101";--data_in(0)(5*8 + 7 downto 5*8);
+			--adx12
+			when 72 =>		writedata_out <= "00000000" & data_in(12)(0*8 + 7 downto 0*8);--"00110000";--data_in(0)(0*8 + 7 downto 0*8);
+			when 73 =>		writedata_out <= "00000000" & data_in(12)(1*8 + 7 downto 1*8);--"00110001";--data_in(0)(1*8 + 7 downto 1*8);
+			when 74 =>		writedata_out <= "00000000" & data_in(12)(2*8 + 7 downto 2*8);--"00110010";--data_in(0)(2*8 + 7 downto 2*8);
+			when 75 =>		writedata_out <= "00000000" & data_in(12)(3*8 + 7 downto 3*8);--"00110011";--data_in(0)(3*8 + 7 downto 3*8);
+			when 76 =>		writedata_out <= "00000000" & data_in(12)(4*8 + 7 downto 4*8);--"00110100";--data_in(0)(4*8 + 7 downto 4*8);
+			when 77 =>		writedata_out <= "00000000" & data_in(12)(5*8 + 7 downto 5*8);--"00110101";--data_in(0)(5*8 + 7 downto 5*8);
+			--adx13
+			when 78 =>		writedata_out <= "00000000" & data_in(13)(0*8 + 7 downto 0*8);--"00110000";--data_in(0)(0*8 + 7 downto 0*8);
+			when 79 =>		writedata_out <= "00000000" & data_in(13)(1*8 + 7 downto 1*8);--"00110001";--data_in(0)(1*8 + 7 downto 1*8);
+			when 80 =>		writedata_out <= "00000000" & data_in(13)(2*8 + 7 downto 2*8);--"00110010";--data_in(0)(2*8 + 7 downto 2*8);
+			when 81 =>		writedata_out <= "00000000" & data_in(13)(3*8 + 7 downto 3*8);--"00110011";--data_in(0)(3*8 + 7 downto 3*8);
+			when 82 =>		writedata_out <= "00000000" & data_in(13)(4*8 + 7 downto 4*8);--"00110100";--data_in(0)(4*8 + 7 downto 4*8);
+			when 83 =>		writedata_out <= "00000000" & data_in(13)(5*8 + 7 downto 5*8);--"00110101";--data_in(0)(5*8 + 7 downto 5*8);
+			--adx14
+			when 84 =>		writedata_out <= "00000000" & data_in(14)(0*8 + 7 downto 0*8);--"00110000";--data_in(0)(0*8 + 7 downto 0*8);
+			when 85 =>		writedata_out <= "00000000" & data_in(14)(1*8 + 7 downto 1*8);--"00110001";--data_in(0)(1*8 + 7 downto 1*8);
+			when 86 =>		writedata_out <= "00000000" & data_in(14)(2*8 + 7 downto 2*8);--"00110010";--data_in(0)(2*8 + 7 downto 2*8);
+			when 87 =>		writedata_out <= "00000000" & data_in(14)(3*8 + 7 downto 3*8);--"00110011";--data_in(0)(3*8 + 7 downto 3*8);
+			when 88 =>		writedata_out <= "00000000" & data_in(14)(4*8 + 7 downto 4*8);--"00110100";--data_in(0)(4*8 + 7 downto 4*8);
+			when 89 =>		writedata_out <= "00000000" & data_in(14)(5*8 + 7 downto 5*8);--"00110101";--data_in(0)(5*8 + 7 downto 5*8);
+			--adx15
+			when 90 =>		writedata_out <= "00000000" & data_in(15)(0*8 + 7 downto 0*8);--"00110000";--data_in(0)(0*8 + 7 downto 0*8);
+			when 91 =>		writedata_out <= "00000000" & data_in(15)(1*8 + 7 downto 1*8);--"00110001";--data_in(0)(1*8 + 7 downto 1*8);
+			when 92 =>		writedata_out <= "00000000" & data_in(15)(2*8 + 7 downto 2*8);--"00110010";--data_in(0)(2*8 + 7 downto 2*8);
+			when 93 =>		writedata_out <= "00000000" & data_in(15)(3*8 + 7 downto 3*8);--"00110011";--data_in(0)(3*8 + 7 downto 3*8);
+			when 94 =>		writedata_out <= "00000000" & data_in(15)(4*8 + 7 downto 4*8);--"00110100";--data_in(0)(4*8 + 7 downto 4*8);
+			when 95 =>		writedata_out <= "00000000" & data_in(15)(5*8 + 7 downto 5*8);--"00110101";--data_in(0)(5*8 + 7 downto 5*8);
+			--adx16
+			when 96 =>		writedata_out <= "00000000" & data_in(16)(0*8 + 7 downto 0*8);--"00110000";--data_in(0)(0*8 + 7 downto 0*8);
+			when 97 =>		writedata_out <= "00000000" & data_in(16)(1*8 + 7 downto 1*8);--"00110001";--data_in(0)(1*8 + 7 downto 1*8);
+			when 98 =>		writedata_out <= "00000000" & data_in(16)(2*8 + 7 downto 2*8);--"00110010";--data_in(0)(2*8 + 7 downto 2*8);
+			when 99 =>		writedata_out <= "00000000" & data_in(16)(3*8 + 7 downto 3*8);--"00110011";--data_in(0)(3*8 + 7 downto 3*8);
+			when 100 =>		writedata_out <= "00000000" & data_in(16)(4*8 + 7 downto 4*8);--"00110100";--data_in(0)(4*8 + 7 downto 4*8);
+			when 101 =>		writedata_out <= "00000000" & data_in(16)(5*8 + 7 downto 5*8);--"00110101";--data_in(0)(5*8 + 7 downto 5*8);
+			--adx0
+			when 102 =>		writedata_out <= "00000000" & data_in(0)(0*8 + 7 downto 0*8);--"00110000";--data_in(0)(0*8 + 7 downto 0*8);
+			when 103 =>		writedata_out <= "00000000" & data_in(0)(1*8 + 7 downto 1*8);--"00110001";--data_in(0)(1*8 + 7 downto 1*8);
+			when 104 =>		writedata_out <= "00000000" & data_in(0)(2*8 + 7 downto 2*8);--"00110010";--data_in(0)(2*8 + 7 downto 2*8);
+			when 105 =>		writedata_out <= "00000000" & data_in(0)(3*8 + 7 downto 3*8);--"00110011";--data_in(0)(3*8 + 7 downto 3*8);
+			when 106 =>		writedata_out <= "00000000" & data_in(0)(4*8 + 7 downto 4*8);--"00110100";--data_in(0)(4*8 + 7 downto 4*8);
+			when 107 =>		writedata_out <= "00000000" & data_in(0)(5*8 + 7 downto 5*8);--"00110101";--data_in(0)(5*8 + 7 downto 5*8);
+			
+			when others	=>	writedata_out <= "00000000" & "00000000";
+		end case;
+	end process;
+	
+	--adx <= cnt/6;
+	--subadx <= cnt - adx*6;
+--	writedata_out <= "00000000" & "10101010"; --data_in(adx)(subadx*8 + 7 downto subadx*8);
+	
+end rtl;
